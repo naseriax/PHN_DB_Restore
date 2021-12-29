@@ -24,7 +24,7 @@ class NE_Adapter:
             try:
                 self.Conn_Terminator()
             except:
-                print(self.NodeIP + 'ConnectionTermination Exception!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1')
+                print(self.NodeIP + 'ConnectionTermination Exception!')
 
     def Conn_Init(self):
         try:
@@ -59,7 +59,7 @@ class NE_Adapter:
             self.tn.read_until(b'#')
             return True
         except:
-            self.log.append('The issue is in Conn_Init block$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+            self.log.append('The issue is in Conn_Init block')
             return False
 
     def CMD_Exec(self,cmd):
@@ -85,7 +85,7 @@ class NE_Adapter:
                 data = self.tn.read_until(b"#",5)
             return data.decode('utf-8')
         except TypeError:
-            self.log.append('The issue is in CMD_Exec block $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+            self.log.append('The issue is in CMD_Exec block $')
 
     def Conn_Terminator(self):
         self.tn.write(('logout\n').encode('ascii'))
@@ -110,9 +110,9 @@ def multiRestore(phns):
     NodeCounter = 0
     p = pool.Pool(20)
     for node in phns:
-        commands = ['config database server ip 10.0.1.254',
-                    'config database server userid otn\nlucent!123',
-                    'config database path /home/otn/TSOL/PHN/BACKUPS/'+node,
+        commands = ['config database server ip 1.1.1.1',
+                    'config database server userid otn\password',
+                    'config database path /home/otn/va/PHN/BACKUPS/'+node,
                     'config database restore force\nyes']
         p.apply_async(P_Executer,args=([phns[node],commands],), callback=collect_result)
     p.close()
@@ -136,7 +136,7 @@ if __name__ == '__main__':
                     for logs in items.log:
                         logfile.write(logs+'\n')
     except TypeError:
-        print('The issue is in log export block $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+        print('The issue is in log export block ')
     print("""
                             (o o)
                       --oOO--(_)--OOo--
